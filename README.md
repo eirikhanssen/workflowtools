@@ -21,9 +21,9 @@ Will over time include useful scripts written with:
 ### html 4 loose conversion to xhtml5 on already published html-galley files
 1. Find all html-galleys of journal articles that were published during old workflow using html 4 loose dtd
 2. For each of these files, if they are a candidate to convert, convert these to xhtml5:
-   a. remove the doctype
-   c. change the meta charset in the <head> seciton
-   b. make sure empty tags will be converted to proper empty xml-elements
+   1. remove the doctype
+   2. change the meta charset in the <head> seciton
+   3. make sure empty tags will be converted to proper empty xml-elements
 3. Make some structural changes
 4. Insert reference to new stylesheet and javascript
 5. Insert the <!DOCTYPE html> declaration to the beginning of the html document
