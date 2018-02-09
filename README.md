@@ -28,6 +28,12 @@ Will over time include useful scripts written with:
 4. Insert reference to new stylesheet and javascript
 5. Insert the <!DOCTYPE html> declaration to the beginning of the html document
 
+#### Running an example, first replacements with sed, then xml-conversion, and displaying the results with less
+```
+cd samples
+cat sample02-multiple-authors-401-loose.html | jats2epub-htmlgalley-2-xhtml5-stage1.sed.sh | saxon - ../pp-html-galley-mod01.xsl | less
+```
+
 ### VTT text processing
 - Process plain vtt-files to create vtt-files with markup and html-code based on the vtt-file contents
 
