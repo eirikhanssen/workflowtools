@@ -36,7 +36,7 @@ Will over time include useful scripts written with:
 
    ```edx-wrap-mixed-content-in-root-html.sh```
 
-2. process the course export files (in the office365 folder), generating a flat xml
+2. process the course export files (in the office365 folder), generating a flat xml and redirecting to file.
 
    ```edx-course-visualizer.sh office365 > office465.flat.xml```
 
