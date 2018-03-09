@@ -7,17 +7,22 @@
     <xsl:output method="xml" indent="yes"></xsl:output>
 
     <!-- A micro-pipeline in XSLT using <xsl:variable> and modes
-         to build a flat xml-structure from xml-documents scattered over many files and folders in this case from a extracted edx-course export archive
+         to build a flat xml-structure from xml-documents 
+         scattered over many files and folders 
+         in this case from a extracted edx-course export archive
 
          - load a xml-file, store in a variable
-         - then process the files this xml document references (in another mode) and add them as children of this node, store in a variable
-         - repeat until all levels of files have been processed and the contents of all files have been merged into one flat xml -->
+         - then process the files this xml document references (in another mode) 
+         - then add them as children of this node and store in a variable
+         - repeat until all levels of files have been processed and merged into one flat xml tree -->
 
-    <!-- This micro-pipeline has been written to work with a known xml-structure, and works as intended with edx course export. 
+    <!-- This micro-pipeline has been written to work with a known xml-structure.
+         It works as intended with the edx course export. 
          It could possibly be re-written more generic using recursive templates/functions -->
     
     <!-- This stylesheet is intended of being called with an initial template, and the folder as a string parameter.
-         The empty string will be supplied as a default a default folder parameter, indicating to look for the starting course.xml in the current folder -->
+         The empty string will be supplied as a default a default folder parameter, 
+         indicating to look for the starting course.xml in the current folder -->
 
     <!-- Example calling this stylesheet with saxon xslt/xquery processor:
 
