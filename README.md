@@ -19,7 +19,8 @@ Will over time include useful scripts written with:
 ## Sample worflow-related problems
 
 ### Edx course export visualizer
-1. prepare the input files (located in office365 as an example) so that they can be processed using xsl transformations. The files are prepared locating files with gnu find, and on each file using sed (stream editor) for search and replace
+
+1. prepare the input files (located in a folder called 'office365' as an example) so that they can be processed using xsl transformations. The files are prepared locating files with gnu find, and on each file using sed (stream editor) for search and replace
 
    ```cd office365```
 
@@ -32,6 +33,8 @@ Will over time include useful scripts written with:
    ```edx-fix-entities-in-html-files.sh```
 
    3. some not well formed html fragments in html files needs to be made well-formed by wrapping a container html element around the contents
+
+   ```edx-wrap-mixed-content-in-root-html.sh```
 
 2. process the course export files (in the office365 folder), generating a flat xml
 
