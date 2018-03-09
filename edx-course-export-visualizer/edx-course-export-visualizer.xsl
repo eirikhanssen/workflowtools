@@ -9,7 +9,7 @@
     <!-- A micro-pipeline in XSLT using <xsl:variable> and modes
          to build a flat xml-structure from xml-documents 
          scattered over many files and folders 
-         in this case from a extracted edx-course export archive
+         in this case from an extracted edx-course export archive
 
          - load a xml-file, store in a variable
          - then process the files this xml document references (in another mode) 
