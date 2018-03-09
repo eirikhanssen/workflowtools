@@ -7,7 +7,8 @@
     <xsl:output method="xml" indent="yes"></xsl:output>
 
     <!-- A micro-pipeline in XSLT using <xsl:variable> and modes
-         build a flat xml-structure from xml-documents scattered over many files and folders
+         to build a flat xml-structure from xml-documents scattered over many files and folders in this case from a extracted edx-course export archive
+
          - load a xml-file, store in a variable
          - then process the files this xml document references (in another mode) and add them as children of this node, store in a variable
          - repeat until all levels of files have been processed and the contents of all files have been merged into one flat xml -->
@@ -32,6 +33,10 @@
 
          -xsl:path speficies where this xsl-stylesheet is located in the filesystem
     -->
+
+   <!-- Written by Eirik Hanssen, OsloMet – Oslo Metropolitan University -->
+
+   <!-- License: Gnu GPLv3 -->
 
     <xsl:param name="f" as="xs:string" select="''"/>
     
