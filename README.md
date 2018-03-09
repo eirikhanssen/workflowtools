@@ -20,14 +20,23 @@ Will over time include useful scripts written with:
 
 ### Edx course export visualizer
 1. prepare the input files (located in office365 as an example) so that they can be processed using xsl transformations. The files are prepared locating files with gnu find, and on each file using sed (stream editor) for search and replace
+
    ```cd office365```
-   1. replace entities such as &oslash; with proper characters such as ø
+
+   1. replace entities such as &amp;oslash; with proper characters such as ø
+
    ```edx-fix-entities-in-html-files.sh```
+
    2. some empty elements in html needs to be made self closing according to xml-rules
+
    ```edx-fix-entities-in-html-files.sh```
+
    3. some not well formed html fragments in html files needs to be made well-formed by wrapping a container html element around the contents
+
 2. process the course export files (in the office365 folder), generating a flat xml
+
    ```edx-course-visualizer.sh office365 > office465.flat.xml```
+
 3. visualizing this xml using html and SVG (not implemented yet)
 
 ### html 4 loose conversion to xhtml5 on already published html-galley files
