@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     exclude-result-prefixes="xs"
-    version="2.0">
+    version="3.0">
+    
     
     <xsl:output method="xml" indent="yes"></xsl:output>
 
@@ -54,6 +56,28 @@
     <xsl:variable name="f_vertical" select="concat($f_root, '/vertical/')"/>
     <xsl:variable name="f_html" select="concat($f_root, '/html/')"/>
     <xsl:variable name="f_video" select="concat($f_root, '/video/')"/>
+
+<xsl:variable name="html_doctype_entities">
+    <xsl:text><![CDATA[<!DOCTYPE html [ 
+<!ENTITY nbsp "&#160;">
+<!ENTITY aring "å">
+<!ENTITY Aring "Å">
+<!ENTITY oslash "ø">
+<!ENTITY Oslash "Ø">
+<!ENTITY aelig "æ">
+<!ENTITY AElig "Æ">
+<!ENTITY lsquo "‘">
+<!ENTITY rsquo "’">
+<!ENTITY mdash "—">
+<!ENTITY ndash "–">
+<!ENTITY ldquo "“">
+<!ENTITY rdquo "”">
+<!ENTITY laquo "«">
+<!ENTITY raquo "»">
+<!ENTITY eacute "é">
+<!ENTITY Eacute "É">
+]>]]></xsl:text>
+</xsl:variable>
 
     <!-- this identity template will by default copy elements with all attributes and nodes unchanged unless a more specific template is invoked -->
     <!-- mode="#all" for the <xsl:template> will make this identity template the default template in all modes -->
@@ -137,10 +161,15 @@
     <!-- phase-5 -->
     
     <xsl:template match="html" mode="phase-6">
-        <xsl:variable name="html-doc" select="doc(concat($f_html,@url_name,'.html'))"/>
+<!--        <xsl:variable name="html-doc" select="doc(concat($f_html,@url_name,'.html'))"/>-->
+        <xsl:variable name="html-doc" select="unparsed-text(concat($f_html,@url_name,'.html'))"/>
+        
+        <!-- prepend a entities doctype before html element, to define html entities -->
+        <xsl:variable name="rooted-html-doc-string" select="concat($html_doctype_entities,'&lt;html>',$html-doc,'&lt;/html>')"/>
+        <xsl:variable name="rooted-html-doc-xml" select="parse-xml($rooted-html-doc-string)"/>
         <html>
             <xsl:apply-templates select="@*"/>
-            <xsl:sequence select="$html-doc/*/(@*|node())"/>
+            <xsl:sequence select="$rooted-html-doc-xml/*/(@*|node())"/>
         </html>
         
     </xsl:template>
