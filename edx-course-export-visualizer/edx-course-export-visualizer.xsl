@@ -57,7 +57,8 @@
     <xsl:variable name="f_html" select="concat($f_root, '/html/')"/>
     <xsl:variable name="f_video" select="concat($f_root, '/video/')"/>
 
-<xsl:variable name="html_doctype_entities">
+<xsl:variable name="html_doctype_entities_local">
+<!--  Define some entities that are used in html files. This might need to be expanded later -->
     <xsl:text><![CDATA[<!DOCTYPE html [ 
 <!ENTITY nbsp "&#160;">
 <!ENTITY aring "å">
@@ -78,6 +79,16 @@
 <!ENTITY Eacute "É">
 ]>]]></xsl:text>
 </xsl:variable>
+    
+<xsl:variable name="html_doctype_entities_w3c">
+<!--  it would be wise to use a local entity resolver instead of fetching these entities over the internet: how do we do this? -->
+<xsl:text><![CDATA[<!DOCTYPE html [
+  <!ENTITY % w3centities-f PUBLIC "-//W3C//ENTITIES Combined Set//EN//XML"
+      "http://www.w3.org/2003/entities/2007/w3centities-f.ent">
+  %w3centities-f;
+]>]]></xsl:text>
+</xsl:variable>
+    
 
     <!-- this identity template will by default copy elements with all attributes and nodes unchanged unless a more specific template is invoked -->
     <!-- mode="#all" for the <xsl:template> will make this identity template the default template in all modes -->
@@ -161,11 +172,11 @@
     <!-- phase-5 -->
     
     <xsl:template match="html" mode="phase-6">
-<!--        <xsl:variable name="html-doc" select="doc(concat($f_html,@url_name,'.html'))"/>-->
         <xsl:variable name="html-doc" select="unparsed-text(concat($f_html,@url_name,'.html'))"/>
         
         <!-- prepend a entities doctype before html element, to define html entities -->
-        <xsl:variable name="rooted-html-doc-string" select="concat($html_doctype_entities,'&lt;html>',$html-doc,'&lt;/html>')"/>
+        <xsl:variable name="rooted-html-doc-string" select="concat($html_doctype_entities_local,'&lt;html>',$html-doc,'&lt;/html>')"/>
+<!--        <xsl:variable name="rooted-html-doc-string" select="concat($html_doctype_entities_w3c,'&lt;html>',$html-doc,'&lt;/html>')"/>-->
         <xsl:variable name="rooted-html-doc-xml" select="parse-xml($rooted-html-doc-string)"/>
         <html>
             <xsl:apply-templates select="@*"/>
