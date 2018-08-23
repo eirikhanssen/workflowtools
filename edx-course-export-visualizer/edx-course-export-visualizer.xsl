@@ -176,8 +176,20 @@
         
         <!-- prepend a entities doctype before html element, to define html entities -->
         <xsl:variable name="rooted-html-doc-string" select="concat($html_doctype_entities_local,'&lt;html>',$html-doc,'&lt;/html>')"/>
+        <xsl:variable name="rooted-html-doc-string-self-closed-images">
+            <xsl:analyze-string select="$rooted-html-doc-string" regex="(&lt;img[^>]+[^/])>">
+                <xsl:matching-substring><xsl:value-of select="concat(regex-group(1),'/>')"/></xsl:matching-substring>
+                <xsl:non-matching-substring>
+                    <!--  remove    <o:p></o:p>                -->
+                    <xsl:analyze-string select="." regex="&lt;o:p>&lt;/o:p>">
+                        <xsl:matching-substring/>
+                        <xsl:non-matching-substring><xsl:value-of select="."/></xsl:non-matching-substring>
+                    </xsl:analyze-string>
+                </xsl:non-matching-substring>
+            </xsl:analyze-string>
+        </xsl:variable>
 <!--        <xsl:variable name="rooted-html-doc-string" select="concat($html_doctype_entities_w3c,'&lt;html>',$html-doc,'&lt;/html>')"/>-->
-        <xsl:variable name="rooted-html-doc-xml" select="parse-xml($rooted-html-doc-string)"/>
+        <xsl:variable name="rooted-html-doc-xml" select="parse-xml($rooted-html-doc-string-self-closed-images)"/>
         <html>
             <xsl:apply-templates select="@*"/>
             <xsl:sequence select="$rooted-html-doc-xml/*/(@*|node())"/>
