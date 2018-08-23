@@ -190,10 +190,10 @@
         </xsl:variable>
 <!--        <xsl:variable name="rooted-html-doc-string" select="concat($html_doctype_entities_w3c,'&lt;html>',$html-doc,'&lt;/html>')"/>-->
         <xsl:variable name="rooted-html-doc-xml" select="parse-xml($rooted-html-doc-string-self-closed-images)"/>
-        <html>
-            <xsl:apply-templates select="@*"/>
+<!--        <html>-->
+<!--            <xsl:apply-templates select="@*"/>-->
             <xsl:sequence select="$rooted-html-doc-xml/*/(@*|node())"/>
-        </html>
+        <!--</html>-->
         
     </xsl:template>
 
