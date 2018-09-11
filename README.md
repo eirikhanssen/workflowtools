@@ -19,28 +19,33 @@ Will over time include useful scripts written with:
 ## Sample worflow-related problems
 
 ### Edx course export visualizer
+A course export from the edx platform consists of an archive with many xml and xml-like files scattered over several folders.
 
-1. prepare the input files (located in a folder called 'office365' as an example) so that they can be processed using xsl transformations. The files are prepared locating files with gnu find, and on each file using sed (stream editor) for search and replace
+The purpose of this tool is to quickly get an overview of the course contents, how many modules, how deep, how many images, videos, outline etc.
 
-   ```cd office365```
+As a first step, this tool will 'flatten' all of these xml and html files into a single xml file (already implemented).
+As a second step, this could be visualized using html and svg (not implemented yet).
 
-   1. replace entities such as &amp;oslash; with proper characters such as ø
+Later I plan to create a website where you can upload an archive, and get the visualized result as well as the flattened xml.
 
-   ```edx-fix-entities-in-html-files.sh```
+#### To flatten the course export into a single xml file
+1. First, we need to unpack the edx course export archive and give it a sensible name. Here I am assuming that you already have the the archive in the current folder. In this case the extracted archive contained the folder called 'course'.
 
-   2. some empty elements in html needs to be made self closing according to xml-rules
+   ```tar -xvzf digital_ll_course.d7QpTx.tar.gz
+   mv course digital-ii-course```
 
-   ```edx-fix-entities-in-html-files.sh```
+2. process the course export files (in the digital-ii-course folder), generating a flat xml and redirecting to file.
 
-   3. some not well formed html fragments in html files needs to be made well-formed by wrapping a container html element around the contents
-
-   ```edx-wrap-mixed-content-in-root-html.sh```
-
-2. process the course export files (in the office365 folder), generating a flat xml and redirecting to file.
-
-   ```edx-course-visualizer.sh office365 > office465.flat.xml```
+   ```edx-course-visualizer.sh digital-ii-course > digital-ii-course.xml```
 
 3. visualizing this xml using html and SVG (not implemented yet)
+
+#### Requirements
+- a terminal client to run commands
+- java runtime environment (required by saxon)
+- the saxon xsl processor (supporing xsl version 3) needs to be in the PATH accessible from the command "saxon"
+- a symlink pointing to edx-course-export-visualizer.sh needs to be in a folder that is in the PATH
+- the references to the edx-course-export-visualizer.xsl stylesheet in edx-course-export-visualizer.xsl needs to be updated to match the full path on your system 
 
 ### html 4 loose conversion to xhtml5 on already published html-galley files
 1. Find all html-galleys of journal articles that were published during old workflow using html 4 loose dtd
