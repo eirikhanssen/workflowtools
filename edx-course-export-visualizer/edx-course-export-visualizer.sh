@@ -5,7 +5,7 @@
 # example:
 # edx-course-export-visualizer.sh > flattened_course_export.xml
 #
-# note that the path tho the xsl-file needs to be updated to the path on your system
+# note that the path to the xsl-file needs to be updated to the path on your system
 # note that you need a working java runtime environment
 # note that saxon (xslt/xproc) processor needs to be installed and accessible in the path using a 'saxon' command
 #
